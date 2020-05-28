@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.0 on win32)" generated="20200527 20:34:12.872" rpa="false">
+<suite id="s1" name="API Testing Robot FW" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW">
+<suite id="s1-s1" name="TheTestingWorld API Suite" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite">
+<suite id="s1-s1-s1" name="E2E" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\E2E">
+<suite id="s1-s1-s1-s1" name="E2E Using Keywords" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\E2E\E2E_Using_Keywords.robot">
+<test id="s1-s1-s1-s1-t1" name="TC01_Create, Get, Update and Delete student record using user defined keywords">
+<kw name="create student using POST" library="Student_Resources">
+<arguments>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${id}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>E2E</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200527 20:34:13.686" level="INFO">Creating Session using : alias=E2E, url=http://thetestingworldapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200527 20:34:13.685" endtime="20200527 20:34:13.686"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>E2E</arg>
+<arg>${resource}</arg>
+<arg>data=${body}</arg>
+<arg>headers=${header}</arg>
+</arguments>
+<assign>
+<var>${post_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:13.994" level="INFO">POST Request : url=http://thetestingworldapi.com/api/studentsDetails 
+ path_url=/api/studentsDetails 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '105'} 
+ body={"first_name": "Mohit", "middle_name": "kumar", "last_name": "Raikwar123", "date_of_birth": "07/03/1993"} 
+ </msg>
+<msg timestamp="20200527 20:34:13.994" level="INFO">POST Response : url=http://thetestingworldapi.com/api/studentsDetails 
+ status=201, reason=Created 
+ body={"id":189645,"first_name":"Mohit","middle_name":"kumar","last_name":"Raikwar123","date_of_birth":"07/03/1993"} 
+ </msg>
+<msg timestamp="20200527 20:34:13.995" level="INFO">${post_resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200527 20:34:13.687" endtime="20200527 20:34:13.996"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${post_resp.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:13.997" endtime="20200527 20:34:13.999"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${post_resp.status_code}</arg>
+</arguments>
+<assign>
+<var>${status_cd}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.002" level="INFO">${status_cd} = 201</msg>
+<status status="PASS" starttime="20200527 20:34:14.000" endtime="20200527 20:34:14.003"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status_cd}</arg>
+<arg>201</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.004" endtime="20200527 20:34:14.006"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${post_resp.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.008" level="INFO">To JSON using : content={"id":189645,"first_name":"Mohit","middle_name":"kumar","last_name":"Raikwar123","date_of_birth":"07/03/1993"} </msg>
+<msg timestamp="20200527 20:34:14.009" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200527 20:34:14.010" level="INFO">${json_resp} = {'id': 189645, 'first_name': 'Mohit', 'middle_name': 'kumar', 'last_name': 'Raikwar123', 'date_of_birth': '07/03/1993'}</msg>
+<status status="PASS" starttime="20200527 20:34:14.007" endtime="20200527 20:34:14.010"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>id</arg>
+</arguments>
+<assign>
+<var>@{id_list}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.167" level="INFO">@{id_list} = [ 189645 ]</msg>
+<status status="PASS" starttime="20200527 20:34:14.011" endtime="20200527 20:34:14.168"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${id_list}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${id}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.170" level="INFO">${id} = 189645</msg>
+<status status="PASS" starttime="20200527 20:34:14.169" endtime="20200527 20:34:14.170"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${id}</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.171" endtime="20200527 20:34:14.172"></status>
+</kw>
+<msg timestamp="20200527 20:34:14.173" level="INFO">${id} = 189645</msg>
+<status status="PASS" starttime="20200527 20:34:13.684" endtime="20200527 20:34:14.173"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${id}</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.174" endtime="20200527 20:34:14.176"></status>
+</kw>
+<kw name="get student info using GET" library="Student_Resources">
+<arguments>
+<arg>${id}</arg>
+</arguments>
+<assign>
+<var>${get_resp}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>stu_get</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200527 20:34:14.179" level="INFO">Creating Session using : alias=stu_get, url=http://thetestingworldapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200527 20:34:14.178" endtime="20200527 20:34:14.180"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>stu_get</arg>
+<arg>${resource}/${id}</arg>
+</arguments>
+<assign>
+<var>${get_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.209" level="INFO">GET Request : url=http://thetestingworldapi.com/api/studentsDetails/189645 
+ path_url=/api/studentsDetails/189645 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200527 20:34:14.210" level="INFO">GET Response : url=http://thetestingworldapi.com/api/studentsDetails/189645 
+ status=200, reason=OK 
+ body={"status":"true","data":{"id":189645,"first_name":"Mohit","middle_name":"kumar","last_name":"Raikwar123","date_of_birth":"07/03/1993"}} 
+ </msg>
+<msg timestamp="20200527 20:34:14.211" level="INFO">${get_resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200527 20:34:14.181" endtime="20200527 20:34:14.211"></status>
+</kw>
+<msg timestamp="20200527 20:34:14.213" level="INFO">${get_resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200527 20:34:14.176" endtime="20200527 20:34:14.214"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${get_resp.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.215" endtime="20200527 20:34:14.217"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${get_resp.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.221" level="INFO">To JSON using : content={"status":"true","data":{"id":189645,"first_name":"Mohit","middle_name":"kumar","last_name":"Raikwar123","date_of_birth":"07/03/1993"}} </msg>
+<msg timestamp="20200527 20:34:14.221" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200527 20:34:14.222" level="INFO">${json_resp} = {'status': 'true', 'data': {'id': 189645, 'first_name': 'Mohit', 'middle_name': 'kumar', 'last_name': 'Raikwar123', 'date_of_birth': '07/03/1993'}}</msg>
+<status status="PASS" starttime="20200527 20:34:14.219" endtime="20200527 20:34:14.223"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.340" level="INFO">${status} = ['true']</msg>
+<status status="PASS" starttime="20200527 20:34:14.224" endtime="20200527 20:34:14.341"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}[0]</arg>
+<arg>true</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.342" endtime="20200527 20:34:14.342"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>id=${id}</arg>
+<arg>first_name=Mohit1234</arg>
+<arg>middle_name=kumar</arg>
+<arg>last_name=Raikwar</arg>
+<arg>date_of_birth=07/03/1993</arg>
+</arguments>
+<assign>
+<var>${body_put}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.345" level="INFO">${body_put} = {'id': 189645, 'first_name': 'Mohit1234', 'middle_name': 'kumar', 'last_name': 'Raikwar', 'date_of_birth': '07/03/1993'}</msg>
+<status status="PASS" starttime="20200527 20:34:14.344" endtime="20200527 20:34:14.345"></status>
+</kw>
+<kw name="update student info using PUT" library="Student_Resources">
+<arguments>
+<arg>${id}</arg>
+<arg>${body_put}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>stu_put</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200527 20:34:14.349" level="INFO">Creating Session using : alias=stu_put, url=http://thetestingworldapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200527 20:34:14.348" endtime="20200527 20:34:14.350"></status>
+</kw>
+<kw name="Put Request" library="RequestsLibrary">
+<doc>Send a PUT request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>stu_put</arg>
+<arg>${resource}/${id}</arg>
+<arg>data=${put_body}</arg>
+<arg>headers=${header}</arg>
+</arguments>
+<assign>
+<var>${put_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.499" level="INFO">PUT Request : url=http://thetestingworldapi.com/api/studentsDetails/189645 
+ path_url=/api/studentsDetails/189645 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '120'} 
+ body={"id": 189645, "first_name": "Mohit1234", "middle_name": "kumar", "last_name": "Raikwar", "date_of_birth": "07/03/1993"} 
+ </msg>
+<msg timestamp="20200527 20:34:14.500" level="INFO">PUT Response : url=http://thetestingworldapi.com/api/studentsDetails/189645 
+ status=200, reason=OK 
+ body={"status":"true","msg":"update  data success"} 
+ </msg>
+<msg timestamp="20200527 20:34:14.501" level="INFO">${put_resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200527 20:34:14.351" endtime="20200527 20:34:14.502"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${put_resp.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.506" level="INFO">To JSON using : content={"status":"true","msg":"update  data success"} </msg>
+<msg timestamp="20200527 20:34:14.507" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200527 20:34:14.508" level="INFO">${json_resp} = {'status': 'true', 'msg': 'update  data success'}</msg>
+<status status="PASS" starttime="20200527 20:34:14.503" endtime="20200527 20:34:14.508"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.618" level="INFO">${status} = ['true']</msg>
+<status status="PASS" starttime="20200527 20:34:14.510" endtime="20200527 20:34:14.618"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}[0]</arg>
+<arg>true</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.618" endtime="20200527 20:34:14.619"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>put_status_${status}[0]</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.619" endtime="20200527 20:34:14.620"></status>
+</kw>
+<msg timestamp="20200527 20:34:14.621" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200527 20:34:14.346" endtime="20200527 20:34:14.621"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.621" endtime="20200527 20:34:14.622"></status>
+</kw>
+<kw name="delete student info using DELETE" library="Student_Resources">
+<arguments>
+<arg>${id}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>stu_del</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200527 20:34:14.624" level="INFO">Creating Session using : alias=stu_del, url=http://thetestingworldapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200527 20:34:14.624" endtime="20200527 20:34:14.625"></status>
+</kw>
+<kw name="Delete Request" library="RequestsLibrary">
+<doc>Send a DELETE request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>stu_del</arg>
+<arg>${resource}/${id}</arg>
+</arguments>
+<assign>
+<var>${del_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.646" level="INFO">DELETE Request : url=http://thetestingworldapi.com/api/studentsDetails/189645 
+ path_url=/api/studentsDetails/189645 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20200527 20:34:14.646" level="INFO">DELETE Response : url=http://thetestingworldapi.com/api/studentsDetails/189645 
+ status=200, reason=OK 
+ body={"status":"true","msg":"Delete  data success"} 
+ </msg>
+<msg timestamp="20200527 20:34:14.647" level="INFO">${del_resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200527 20:34:14.625" endtime="20200527 20:34:14.647"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${del_resp.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.648" level="INFO">To JSON using : content={"status":"true","msg":"Delete  data success"} </msg>
+<msg timestamp="20200527 20:34:14.649" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200527 20:34:14.649" level="INFO">${json_resp} = {'status': 'true', 'msg': 'Delete  data success'}</msg>
+<status status="PASS" starttime="20200527 20:34:14.647" endtime="20200527 20:34:14.650"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20200527 20:34:14.708" level="INFO">${status} = ['true']</msg>
+<status status="PASS" starttime="20200527 20:34:14.650" endtime="20200527 20:34:14.708"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}[0]</arg>
+<arg>true</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.709" endtime="20200527 20:34:14.709"></status>
+</kw>
+<msg timestamp="20200527 20:34:14.710" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200527 20:34:14.623" endtime="20200527 20:34:14.710"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200527 20:34:14.710" endtime="20200527 20:34:14.711"></status>
+</kw>
+<status status="PASS" starttime="20200527 20:34:13.682" endtime="20200527 20:34:14.712" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200527 20:34:13.010" endtime="20200527 20:34:14.713"></status>
+</suite>
+<status status="PASS" starttime="20200527 20:34:13.005" endtime="20200527 20:34:14.717"></status>
+</suite>
+<status status="PASS" starttime="20200527 20:34:13.000" endtime="20200527 20:34:14.720"></status>
+</suite>
+<status status="PASS" starttime="20200527 20:34:12.952" endtime="20200527 20:34:14.724"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="API Testing Robot FW">API Testing Robot FW</stat>
+<stat pass="1" fail="0" id="s1-s1" name="TheTestingWorld API Suite">API Testing Robot FW.TheTestingWorld API Suite</stat>
+<stat pass="1" fail="0" id="s1-s1-s1" name="E2E">API Testing Robot FW.TheTestingWorld API Suite.E2E</stat>
+<stat pass="1" fail="0" id="s1-s1-s1-s1" name="E2E Using Keywords">API Testing Robot FW.TheTestingWorld API Suite.E2E.E2E Using Keywords</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

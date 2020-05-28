@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keywordspec name="jsonpath" type="LIBRARY" format="ROBOT" scope="GLOBAL" namedargs="true" generated="2020-05-24T18:49:17Z" specversion="2" source="..\Programs\Python\Python38-32\Lib\site-packages\jsonpath.py" lineno="1">
+<version>0.82</version>
+<scope>global</scope>
+<namedargs>yes</namedargs>
+<doc>An XPath for JSON
+
+A port of the Perl, and JavaScript versions of JSONPath
+see http://goessner.net/articles/JsonPath/
+
+Based on on JavaScript version by Stefan Goessner at:
+        https://goessner.net/articles/JsonPath/
+        http://code.google.com/p/jsonpath/
+and Perl version by Kate Rhodes at:
+        http://github.com/masukomi/jsonpath-perl/tree/master
+
+Python3 compatibily by Per J. Sandstrom</doc>
+<kw name="Jsonpath" lineno="103">
+<arguments>
+<arg>obj</arg>
+<arg>expr</arg>
+<arg>result_type=VALUE</arg>
+<arg>debug=0</arg>
+<arg>use_eval=True</arg>
+</arguments>
+<doc>traverse JSON object using jsonpath expr, returning values or paths</doc>
+</kw>
+</keywordspec>

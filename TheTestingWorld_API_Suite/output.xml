@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.0 on win32)" generated="20200528 11:22:52.632" rpa="false">
+<suite id="s1" name="TheTestingWorld API Suite" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite">
+<suite id="s1-s1" name="Delete TC" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Delete_TC">
+<suite id="s1-s1-s1" name="Delete student" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Delete_TC\Delete_student.robot">
+<test id="s1-s1-s1-t1" name="TC02_Create student and then delete student">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>delete_student</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200528 11:22:54.468" level="INFO">Creating Session using : alias=delete_student, url=http://thetestingworldapi.com/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200528 11:22:54.467" endtime="20200528 11:22:54.468"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>delete_student</arg>
+<arg>${resource}</arg>
+<arg>data=${body}</arg>
+<arg>headers=${header}</arg>
+</arguments>
+<assign>
+<var>${post_resp}</var>
+</assign>
+<msg timestamp="20200528 11:22:54.591" level="INFO">POST Request : url=http://thetestingworldapi.com//api/studentsDetails/ 
+ path_url=//api/studentsDetails/ 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '102'} 
+ body={"first_name": "Mohit", "middle_name": "kumar", "last_name": "Raikwar", "date_of_birth": "07/03/1993"} 
+ </msg>
+<msg timestamp="20200528 11:22:54.591" level="INFO">POST Response : url=http://thetestingworldapi.com//api/studentsDetails/ 
+ status=201, reason=Created 
+ body={"id":189761,"first_name":"Mohit","middle_name":"kumar","last_name":"Raikwar","date_of_birth":"07/03/1993"} 
+ </msg>
+<msg timestamp="20200528 11:22:54.592" level="INFO">${post_resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200528 11:22:54.469" endtime="20200528 11:22:54.593"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${post_resp.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200528 11:22:54.597" level="INFO">To JSON using : content={"id":189761,"first_name":"Mohit","middle_name":"kumar","last_name":"Raikwar","date_of_birth":"07/03/1993"} </msg>
+<msg timestamp="20200528 11:22:54.598" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200528 11:22:54.599" level="INFO">${json_resp} = {'id': 189761, 'first_name': 'Mohit', 'middle_name': 'kumar', 'last_name': 'Raikwar', 'date_of_birth': '07/03/1993'}</msg>
+<status status="PASS" starttime="20200528 11:22:54.595" endtime="20200528 11:22:54.599"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>id</arg>
+</arguments>
+<assign>
+<var>${id}</var>
+</assign>
+<msg timestamp="20200528 11:22:54.791" level="INFO">${id} = [189761]</msg>
+<status status="PASS" starttime="20200528 11:22:54.601" endtime="20200528 11:22:54.791"></status>
+</kw>
+<kw name="Delete Request" library="RequestsLibrary">
+<doc>Send a DELETE request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>delete_student</arg>
+<arg>${resource}${id}[0]</arg>
+</arguments>
+<assign>
+<var>${response1}</var>
+</assign>
+<msg timestamp="20200528 11:22:54.897" level="INFO">DELETE Request : url=http://thetestingworldapi.com//api/studentsDetails/189761 
+ path_url=//api/studentsDetails/189761 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20200528 11:22:54.897" level="INFO">DELETE Response : url=http://thetestingworldapi.com//api/studentsDetails/189761 
+ status=200, reason=OK 
+ body={"status":"true","msg":"Delete  data success"} 
+ </msg>
+<msg timestamp="20200528 11:22:54.898" level="INFO">${response1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200528 11:22:54.792" endtime="20200528 11:22:54.898"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${response1.status_code}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:54.901" endtime="20200528 11:22:54.904"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${response1.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:54.906" endtime="20200528 11:22:54.909"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response1.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200528 11:22:54.913" level="INFO">To JSON using : content={"status":"true","msg":"Delete  data success"} </msg>
+<msg timestamp="20200528 11:22:54.913" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200528 11:22:54.913" level="INFO">${json_resp} = {'status': 'true', 'msg': 'Delete  data success'}</msg>
+<status status="PASS" starttime="20200528 11:22:54.911" endtime="20200528 11:22:54.913"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20200528 11:22:54.966" level="INFO">${status} = ['true']</msg>
+<status status="PASS" starttime="20200528 11:22:54.915" endtime="20200528 11:22:54.966"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}[0]</arg>
+<arg>true</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:54.967" endtime="20200528 11:22:54.968"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response1.status_code}</arg>
+</arguments>
+<assign>
+<var>${status_cd}</var>
+</assign>
+<msg timestamp="20200528 11:22:54.969" level="INFO">${status_cd} = 200</msg>
+<status status="PASS" starttime="20200528 11:22:54.969" endtime="20200528 11:22:54.969"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status_cd}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:54.970" endtime="20200528 11:22:54.971"></status>
+</kw>
+<tags>
+<tag>Smoke</tag>
+</tags>
+<status status="PASS" starttime="20200528 11:22:54.466" endtime="20200528 11:22:54.972" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200528 11:22:52.737" endtime="20200528 11:22:54.974"></status>
+</suite>
+<status status="PASS" starttime="20200528 11:22:52.731" endtime="20200528 11:22:54.977"></status>
+</suite>
+<suite id="s1-s2" name="Get TC" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Get_TC">
+<suite id="s1-s2-s1" name="Get With Parameters" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Get_TC\Get_With_Parameters.robot">
+<test id="s1-s2-s1-t1" name="TC01_Test Get with parameters">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session1</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200528 11:22:54.993" level="INFO">Creating Session using : alias=session1, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200528 11:22:54.993" endtime="20200528 11:22:54.994"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>session1</arg>
+<arg>${resource}</arg>
+</arguments>
+<assign>
+<var>${response1}</var>
+</assign>
+<msg timestamp="20200528 11:22:55.778" level="INFO">GET Request : url=https://reqres.in/api/users?page=2 
+ path_url=/api/users?page=2 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200528 11:22:55.779" level="INFO">GET Response : url=https://reqres.in/api/users?page=2 
+ status=200, reason=OK 
+ body={"page":2,"per_page":6,"total":12,"total_pages":2,"data":[{"id":7,"email":"michael.lawson@reqres.in","first_name":"Michael","last_name":"Lawson","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg"},{"id":8,"email":"lindsay.ferguson@reqres.in","first_name":"Lindsay","last_name":"Ferguson","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/araa3185/128.jpg"},{"id":9,"email":"tobias.funke@reqres.in","first_name":"Tobias","last_name":"Funke","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/vivekprvr/128.jpg"},{"id":10,"email":"byron.fields@reqres.in","first_name":"Byron","last_name":"Fields","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/russoedu/128.jpg"},{"id":11,"email":"george.edwards@reqres.in","first_name":"George","last_name":"Edwards","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/mrmoiree/128.jpg"},{"id":12,"email":"rachel.howell@reqres.in","first_name":"Rachel","last_name":"Howell","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/hebertialmeida/128.jpg"}],"ad":{"company":"StatusCode Weekly","url":"http://statuscode.org/","text":"A weekly newsletter focusing on software development, infrastructure, the server, performance, and the stack end of things."}} 
+ </msg>
+<msg timestamp="20200528 11:22:55.779" level="INFO">c:\users\beauty\appdata\local\programs\python\python38-32\lib\site-packages\urllib3\connectionpool.py:997: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20200528 11:22:55.780" level="INFO">${response1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200528 11:22:54.995" endtime="20200528 11:22:55.780"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response1.status_code}</arg>
+</arguments>
+<assign>
+<var>${status_cd}</var>
+</assign>
+<msg timestamp="20200528 11:22:55.793" level="INFO">${status_cd} = 200</msg>
+<status status="PASS" starttime="20200528 11:22:55.790" endtime="20200528 11:22:55.793"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status_cd}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:55.795" endtime="20200528 11:22:55.797"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${response1.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:55.799" endtime="20200528 11:22:55.802"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response1.content}</arg>
+</arguments>
+<assign>
+<var>${json_req}</var>
+</assign>
+<msg timestamp="20200528 11:22:55.808" level="INFO">To JSON using : content={"page":2,"per_page":6,"total":12,"total_pages":2,"data":[{"id":7,"email":"michael.lawson@reqres.in","first_name":"Michael","last_name":"Lawson","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg"},{"id":8,"email":"lindsay.ferguson@reqres.in","first_name":"Lindsay","last_name":"Ferguson","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/araa3185/128.jpg"},{"id":9,"email":"tobias.funke@reqres.in","first_name":"Tobias","last_name":"Funke","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/vivekprvr/128.jpg"},{"id":10,"email":"byron.fields@reqres.in","first_name":"Byron","last_name":"Fields","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/russoedu/128.jpg"},{"id":11,"email":"george.edwards@reqres.in","first_name":"George","last_name":"Edwards","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/mrmoiree/128.jpg"},{"id":12,"email":"rachel.howell@reqres.in","first_name":"Rachel","last_name":"Howell","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/hebertialmeida/128.jpg"}],"ad":{"company":"StatusCode Weekly","url":"http://statuscode.org/","text":"A weekly newsletter focusing on software development, infrastructure, the server, performance, and the stack end of things."}} </msg>
+<msg timestamp="20200528 11:22:55.808" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200528 11:22:55.809" level="INFO">${json_req} = {'page': 2, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [{'id': 7, 'email': 'michael.lawson@reqres.in', 'first_name': 'Michael', 'last_name': 'Lawson', 'avatar': 'https://s3.amazonaws.com/ui...</msg>
+<status status="PASS" starttime="20200528 11:22:55.807" endtime="20200528 11:22:55.809"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_req}</arg>
+<arg>data[1].email</arg>
+</arguments>
+<assign>
+<var>@{email_list}</var>
+</assign>
+<msg timestamp="20200528 11:22:55.879" level="INFO">@{email_list} = [ lindsay.ferguson@reqres.in ]</msg>
+<status status="PASS" starttime="20200528 11:22:55.810" endtime="20200528 11:22:55.879"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>value_from_list_${email_list}[0]</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:55.880" endtime="20200528 11:22:55.881"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${email_list}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${email}</var>
+</assign>
+<msg timestamp="20200528 11:22:55.882" level="INFO">${email} = lindsay.ferguson@reqres.in</msg>
+<status status="PASS" starttime="20200528 11:22:55.882" endtime="20200528 11:22:55.883"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${email}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:55.884" endtime="20200528 11:22:55.885"></status>
+</kw>
+<tags>
+<tag>Smoke</tag>
+</tags>
+<status status="PASS" starttime="20200528 11:22:54.992" endtime="20200528 11:22:55.886" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200528 11:22:54.985" endtime="20200528 11:22:55.919"></status>
+</suite>
+<status status="PASS" starttime="20200528 11:22:54.980" endtime="20200528 11:22:55.925"></status>
+</suite>
+<suite id="s1-s3" name="Post TC" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Post_TC">
+<suite id="s1-s3-s1" name="Add Student Using Json File" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Post_TC\Add_Student_Using_Json_File.robot">
+<test id="s1-s3-s1-t1" name="TC01_Create student using complex json file">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>stu_post</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200528 11:22:58.681" level="INFO">Creating Session using : alias=stu_post, url=http://thetestingworldapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200528 11:22:58.678" endtime="20200528 11:22:58.683"></status>
+</kw>
+<kw name="Read Json" library="Read_Json_File">
+<arguments>
+<arg>${filepath}</arg>
+</arguments>
+<assign>
+<var>${body_from_Json}</var>
+</assign>
+<msg timestamp="20200528 11:22:58.772" level="INFO">C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite</msg>
+<msg timestamp="20200528 11:22:58.773" level="INFO">${body_from_Json} = {'first_name': 'Mohit', 'middle_name': 'Kumar', 'last_name': 'Raikwar', 'date_of_birth': '07/03/1993'}</msg>
+<status status="PASS" starttime="20200528 11:22:58.685" endtime="20200528 11:22:58.773"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>stu_post</arg>
+<arg>${resource}</arg>
+<arg>data=${body_from_Json}</arg>
+<arg>headers=${header}</arg>
+</arguments>
+<assign>
+<var>${post_resp}</var>
+</assign>
+<msg timestamp="20200528 11:22:58.816" level="INFO">POST Request : url=http://thetestingworldapi.com/api/studentsDetails 
+ path_url=/api/studentsDetails 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '102'} 
+ body={"first_name": "Mohit", "middle_name": "Kumar", "last_name": "Raikwar", "date_of_birth": "07/03/1993"} 
+ </msg>
+<msg timestamp="20200528 11:22:58.817" level="INFO">POST Response : url=http://thetestingworldapi.com/api/studentsDetails 
+ status=201, reason=Created 
+ body={"id":189762,"first_name":"Mohit","middle_name":"Kumar","last_name":"Raikwar","date_of_birth":"07/03/1993"} 
+ </msg>
+<msg timestamp="20200528 11:22:58.817" level="INFO">${post_resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200528 11:22:58.776" endtime="20200528 11:22:58.818"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${post_resp.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:58.820" endtime="20200528 11:22:58.823"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${post_resp.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200528 11:22:58.831" level="INFO">To JSON using : content={"id":189762,"first_name":"Mohit","middle_name":"Kumar","last_name":"Raikwar","date_of_birth":"07/03/1993"} </msg>
+<msg timestamp="20200528 11:22:58.831" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200528 11:22:58.832" level="INFO">${json_resp} = {'id': 189762, 'first_name': 'Mohit', 'middle_name': 'Kumar', 'last_name': 'Raikwar', 'date_of_birth': '07/03/1993'}</msg>
+<status status="PASS" starttime="20200528 11:22:58.827" endtime="20200528 11:22:58.832"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>id</arg>
+</arguments>
+<assign>
+<var>@{id_list}</var>
+</assign>
+<msg timestamp="20200528 11:22:59.067" level="INFO">@{id_list} = [ 189762 ]</msg>
+<status status="PASS" starttime="20200528 11:22:58.835" endtime="20200528 11:22:59.067"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${id_list}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${id}</var>
+</assign>
+<msg timestamp="20200528 11:22:59.070" level="INFO">${id} = 189762</msg>
+<status status="PASS" starttime="20200528 11:22:59.069" endtime="20200528 11:22:59.070"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>id_of_new_student_is_:${id}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:59.071" endtime="20200528 11:22:59.072"></status>
+</kw>
+<doc>This scripts will create new student by using complex payload present in json file using python read_json user defined method</doc>
+<tags>
+<tag>Regression</tag>
+<tag>Smoke</tag>
+</tags>
+<status status="PASS" starttime="20200528 11:22:58.671" endtime="20200528 11:22:59.075" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200528 11:22:55.936" endtime="20200528 11:22:59.085"></status>
+</suite>
+<status status="PASS" starttime="20200528 11:22:55.930" endtime="20200528 11:22:59.097"></status>
+</suite>
+<suite id="s1-s4" name="Put TC" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Put_TC">
+<suite id="s1-s4-s1" name="Update st" source="C:\Users\Beauty\eclipse-workspace\API_Testing_Robot_FW\TheTestingWorld_API_Suite\Put_TC\Update_st.robot">
+<test id="s1-s4-s1-t1" name="TC01_Upadate existing student details using PUT method">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>put_st</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200528 11:22:59.151" level="INFO">Creating Session using : alias=put_st, url=http://thetestingworldapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200528 11:22:59.150" endtime="20200528 11:22:59.152"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{header}</var>
+</assign>
+<msg timestamp="20200528 11:22:59.156" level="INFO">&amp;{header} = { Content-Type=application/json }</msg>
+<status status="PASS" starttime="20200528 11:22:59.155" endtime="20200528 11:22:59.156"></status>
+</kw>
+<kw name="Put Request" library="RequestsLibrary">
+<doc>Send a PUT request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>put_st</arg>
+<arg>${resource}/186733</arg>
+<arg>data=${body}</arg>
+<arg>headers=${header}</arg>
+</arguments>
+<assign>
+<var>${put_resp}</var>
+</assign>
+<msg timestamp="20200528 11:22:59.271" level="INFO">PUT Request : url=http://thetestingworldapi.com/api/studentsDetails/186733 
+ path_url=/api/studentsDetails/186733 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '122'} 
+ body={"id": "186733", "first_name": "Mohit1234", "middle_name": "kumar", "last_name": "Raikwar", "date_of_birth": "07/03/1993"} 
+ </msg>
+<msg timestamp="20200528 11:22:59.272" level="INFO">PUT Response : url=http://thetestingworldapi.com/api/studentsDetails/186733 
+ status=200, reason=OK 
+ body={"status":"true","msg":"update  data success"} 
+ </msg>
+<msg timestamp="20200528 11:22:59.273" level="INFO">${put_resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200528 11:22:59.158" endtime="20200528 11:22:59.273"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${put_resp.content}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:59.277" endtime="20200528 11:22:59.280"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${put_resp.status_code}</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:59.284" endtime="20200528 11:22:59.288"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${put_resp.content}</arg>
+</arguments>
+<assign>
+<var>${json_resp}</var>
+</assign>
+<msg timestamp="20200528 11:22:59.297" level="INFO">To JSON using : content={"status":"true","msg":"update  data success"} </msg>
+<msg timestamp="20200528 11:22:59.297" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200528 11:22:59.298" level="INFO">${json_resp} = {'status': 'true', 'msg': 'update  data success'}</msg>
+<status status="PASS" starttime="20200528 11:22:59.294" endtime="20200528 11:22:59.298"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_resp}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20200528 11:22:59.424" level="INFO">${status} = ['true']</msg>
+<status status="PASS" starttime="20200528 11:22:59.300" endtime="20200528 11:22:59.424"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status}[0]</arg>
+<arg>true</arg>
+</arguments>
+<status status="PASS" starttime="20200528 11:22:59.425" endtime="20200528 11:22:59.426"></status>
+</kw>
+<tags>
+<tag>Regression</tag>
+<tag>Smoke</tag>
+</tags>
+<status status="PASS" starttime="20200528 11:22:59.148" endtime="20200528 11:22:59.427" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200528 11:22:59.122" endtime="20200528 11:22:59.430"></status>
+</suite>
+<status status="PASS" starttime="20200528 11:22:59.110" endtime="20200528 11:22:59.435"></status>
+</suite>
+<status status="PASS" starttime="20200528 11:22:52.646" endtime="20200528 11:22:59.441"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0">Critical Tests</stat>
+<stat pass="4" fail="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="2" fail="0">Regression</stat>
+<stat pass="4" fail="0">Smoke</stat>
+</tag>
+<suite>
+<stat pass="4" fail="0" id="s1" name="TheTestingWorld API Suite">TheTestingWorld API Suite</stat>
+<stat pass="1" fail="0" id="s1-s1" name="Delete TC">TheTestingWorld API Suite.Delete TC</stat>
+<stat pass="1" fail="0" id="s1-s1-s1" name="Delete student">TheTestingWorld API Suite.Delete TC.Delete student</stat>
+<stat pass="1" fail="0" id="s1-s2" name="Get TC">TheTestingWorld API Suite.Get TC</stat>
+<stat pass="1" fail="0" id="s1-s2-s1" name="Get With Parameters">TheTestingWorld API Suite.Get TC.Get With Parameters</stat>
+<stat pass="1" fail="0" id="s1-s3" name="Post TC">TheTestingWorld API Suite.Post TC</stat>
+<stat pass="1" fail="0" id="s1-s3-s1" name="Add Student Using Json File">TheTestingWorld API Suite.Post TC.Add Student Using Json File</stat>
+<stat pass="1" fail="0" id="s1-s4" name="Put TC">TheTestingWorld API Suite.Put TC</stat>
+<stat pass="1" fail="0" id="s1-s4-s1" name="Update st">TheTestingWorld API Suite.Put TC.Update st</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
